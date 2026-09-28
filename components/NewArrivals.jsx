@@ -13,15 +13,15 @@ const arrivals = [
     image: "/others/8028e4627b84d16f84581f0bc379e0ad.jpg",
     name: "Sage Linen Shirt",
     blurb: "Band-collar linen shirt in soft sage, paired with wide white trousers.",
-    price: 78.0,
-    originalPrice: 96.0,
+    price: 6474.0,
+    originalPrice: 7968.0,
   },
   {
     key: "teal-camp-shirt",
     image: "/others/f3ad03722e2a8cdb3bfbd672040769f5.jpg",
     name: "Teal Camp Shirt",
     blurb: "Retro camp-collar shirt in teal, layered over cream wide-leg pants.",
-    price: 82.0,
+    price: 6806.0,
     originalPrice: null,
   },
   {
@@ -29,15 +29,15 @@ const arrivals = [
     image: "/others/146c86a67aec1b902ab4ecef836dfb04.jpg",
     name: "Shadow Tank Denim Set",
     blurb: "Fitted black tank paired with light-wash wide-leg denim.",
-    price: 88.0,
-    originalPrice: 104.0,
+    price: 7304.0,
+    originalPrice: 8632.0,
   },
   {
     key: "ivory-corset",
     image: "/others/9e63a89253fd2a7372e9e4732a586374.jpg",
     name: "Ivory Corset Top",
     blurb: "Structured corset top styled with light-wash straight denim.",
-    price: 74.0,
+    price: 6142.0,
     originalPrice: null,
   },
 ];
@@ -101,10 +101,10 @@ export default function NewArrivals() {
             <p className="mt-4 text-sm font-semibold text-ink">{item.name}</p>
             <p className="mt-1 text-xs leading-snug text-ink/50">{item.blurb}</p>
             <p className="mt-2 text-sm font-semibold text-ink">
-              ${item.price.toFixed(2)}
+              ₹{item.price.toFixed(2)}
               {item.originalPrice && (
                 <span className="ml-2 text-ink/35 line-through">
-                  ${item.originalPrice.toFixed(2)}
+                  ₹{item.originalPrice.toFixed(2)}
                 </span>
               )}
             </p>

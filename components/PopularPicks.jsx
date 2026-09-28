@@ -97,7 +97,7 @@ export default function PopularPicks() {
             <div className="mt-4 flex items-start justify-between gap-2">
               <div>
                 <p className="text-sm font-semibold text-ink">{product.name}</p>
-                <p className="mt-1 text-sm text-ink/50">${product.price.toFixed(2)}</p>
+                <p className="mt-1 text-sm text-ink/50">₹{product.price.toFixed(2)}</p>
               </div>
               <button
                 type="button"

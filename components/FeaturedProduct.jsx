@@ -80,7 +80,7 @@ export default function FeaturedProduct() {
           </p>
 
           <div className="feat-reveal flex items-center gap-6 mb-10">
-            <span className="text-4xl font-bold text-ink">$800.00</span>
+            <span className="text-4xl font-bold text-ink">₹66,400.00</span>
             <div className="flex items-center gap-1">
               {[...Array(5)].map((_, i) => (
                 <Star 
@@ -104,7 +104,7 @@ export default function FeaturedProduct() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 font-medium">To Order</p>
-                  <p className="font-bold text-xl text-ink">$2,580</p>
+                  <p className="font-bold text-xl text-ink">₹2,14,140</p>
                 </div>
               </div>
               
@@ -115,7 +115,7 @@ export default function FeaturedProduct() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 font-medium">In Stock</p>
-                  <p className="font-bold text-xl text-ink">$5,980</p>
+                  <p className="font-bold text-xl text-ink">₹4,96,340</p>
                 </div>
               </div>
             </div>

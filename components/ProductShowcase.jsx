@@ -311,7 +311,7 @@ export default function ProductShowcase() {
               </h2>
 
               <p className="mt-4 text-2xl font-semibold text-ink">
-                ${activeProduct.price.toFixed(2)}
+                ₹{activeProduct.price.toFixed(2)}
               </p>
 
               <div className="mt-8">
@@ -369,7 +369,7 @@ export default function ProductShowcase() {
             >
               <span>ADD TO CART</span>
               <span className="flex items-center gap-3">
-                ${activeProduct.price.toFixed(2)}
+                ₹{activeProduct.price.toFixed(2)}
                 <ShoppingBag size={18} strokeWidth={1.75} />
               </span>
             </button>
