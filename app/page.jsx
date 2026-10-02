@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import ProductShowcase from "@/components/ProductShowcase";
 import PopularPicks from "@/components/PopularPicks";
 import IdentityShowcase from "@/components/IdentityShowcase";
 import CategoryGrid from "@/components/CategoryGrid";
@@ -12,7 +11,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <ProductShowcase />
       <PopularPicks />
       <IdentityShowcase />
       <CategoryGrid />

@@ -38,7 +38,7 @@ export default function PaymentPage() {
             </div>
 
             <button type="button" className="mt-4 w-full rounded-xl bg-ink py-4 text-sm font-semibold tracking-wide text-white transition-transform hover:scale-[1.02]">
-              PAY $140.40
+              PAY ₹11,664.00
             </button>
           </form>
         </div>

@@ -12,19 +12,18 @@ const HIGH_THRESHOLD_SQ = HIGH_THRESHOLD * HIGH_THRESHOLD;
 const PROCESS_SCALE = 1;
 
 export default function VideoCutout({ src, className }) {
-  const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const videoRef = useRef(null);
   const rafRef = useRef(null);
   const bgColorRef = useRef(null);
   const keyingRef = useRef(true);
 
   useEffect(() => {
     const video = videoRef.current;
+    if (!video) return;
+    
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
-    video.muted = true;
-    video.defaultMuted = true;
 
     const sampleBackground = () => {
       const vw = video.videoWidth;
@@ -135,8 +134,15 @@ export default function VideoCutout({ src, className }) {
         loop
         playsInline
         autoPlay
-        preload="auto"
-        className="hidden"
+        style={{
+          position: "fixed",
+          left: "-9999px",
+          top: "-9999px",
+          opacity: 0,
+          pointerEvents: "none",
+          width: "10px",
+          height: "10px"
+        }}
       />
       <canvas ref={canvasRef} className={className} />
     </>

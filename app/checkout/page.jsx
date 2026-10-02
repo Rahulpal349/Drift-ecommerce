@@ -62,13 +62,13 @@ export default function CheckoutPage() {
                       <p className="text-sm font-semibold text-ink">Oversized Heavyweight Tee</p>
                       <p className="text-xs text-ink/50">Qty: 1</p>
                     </div>
-                    <p className="text-sm font-semibold text-ink">$45.00</p>
+                    <p className="text-sm font-semibold text-ink">₹3,700.00</p>
                   </div>
                 ))}
                 <div className="my-6 border-t border-ink/10"></div>
                 <div className="flex justify-between text-lg font-bold text-ink">
                   <span>Total</span>
-                  <span>$140.40</span>
+                  <span>₹11,664.00</span>
                 </div>
               </div>
             </div>

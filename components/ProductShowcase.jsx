@@ -12,6 +12,66 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(Flip, ScrollTrigger);
 }
 
+function ProductVideoBg() {
+  const canvasRef = useRef(null);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let rafId;
+
+    video.addEventListener("loadedmetadata", () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+    });
+
+    const draw = () => {
+      if (video.readyState >= 2 && canvas.width > 0) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      }
+      rafId = requestAnimationFrame(draw);
+    };
+
+    video.play().catch(() => {});
+    rafId = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <>
+      <video
+        ref={videoRef}
+        src="/videos/product.mp4"
+        muted
+        loop
+        playsInline
+        autoPlay
+        style={{
+          position: "fixed",
+          left: "-9999px",
+          top: "-9999px",
+          opacity: 0,
+          pointerEvents: "none",
+          width: "10px",
+          height: "10px"
+        }}
+      />
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+        style={{ mixBlendMode: "multiply" }}
+      />
+    </>
+  );
+}
+
 export default function ProductShowcase() {
   const N = products.length;
   const [mounted, setMounted] = useState(false);
@@ -209,8 +269,8 @@ export default function ProductShowcase() {
   return (
     <section id="shop" className="showcase-section relative h-screen w-full bg-white">
       <div className="grid h-full min-h-0 grid-cols-1 lg:grid-cols-[62%_38%]">
-        <div className="relative flex min-h-0 flex-col bg-white">
-          <Navbar variant="shop" />
+        <div className="relative flex min-h-0 flex-col bg-white z-50">
+          <Navbar />
 
           <div className="relative flex min-h-0 flex-1 items-end justify-center overflow-hidden px-6 py-6 main-img-container">
             <button
@@ -277,17 +337,9 @@ export default function ProductShowcase() {
         </div>
 
         <div className="relative flex flex-col justify-center overflow-hidden bg-white px-8 py-10 md:px-14">
-          {/* Video as full bg — multiply blend strips the light studio background */}
+          {/* Video as full bg — rendered on canvas to hide from IDM */}
           {mounted && (
-            <video
-              src="/videos/product.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
-              style={{ mixBlendMode: "multiply" }}
-            />
+            <ProductVideoBg />
           )}
 
           {/* White overlay to keep text legible over the video */}
