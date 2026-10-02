@@ -70,13 +70,13 @@ export default function Hero() {
         )
         .fromTo(
           line1Ref.current,
-          { yPercent: 110 },
+          { yPercent: 140 },
           { yPercent: 0, duration: 0.9, ease: "power4.out" },
           "-=0.25"
         )
         .fromTo(
           line2Ref.current,
-          { yPercent: 110 },
+          { yPercent: 140 },
           { yPercent: 0, duration: 0.9, ease: "power4.out" },
           "-=0.65"
         )
@@ -163,12 +163,12 @@ export default function Hero() {
               </div>
 
               <h1 className="flex flex-col text-[clamp(2.5rem,7vw,6rem)] font-bold leading-[0.92] tracking-tighter text-ink">
-                <span className="overflow-hidden">
+                <span className="overflow-hidden pb-[0.2em] -mb-[0.2em]">
                   <span ref={line1Ref} className="block">
                     Timeless
                   </span>
                 </span>
-                <span className="overflow-hidden">
+                <span className="overflow-hidden pb-[0.2em] -mb-[0.2em]">
                   <span ref={line2Ref} className="block font-serif italic text-amber-800/70">
                     Elegance.
                   </span>

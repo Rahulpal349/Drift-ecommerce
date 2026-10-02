@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, Heart, ShoppingBag, Star } from "lucide-react";
@@ -12,6 +12,27 @@ gsap.registerPlugin(ScrollTrigger);
 export default function TrendingSarees() {
   const sectionRef = useRef(null);
   const scrollerRef = useRef(null);
+  const isHoveringRef = useRef(false);
+  const rafRef = useRef(null);
+
+  const displayProducts = [...products, ...products];
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const step = () => {
+      if (!isHoveringRef.current) {
+        scroller.scrollLeft += 2;
+        if (scroller.scrollLeft >= scroller.scrollWidth / 2) {
+          scroller.scrollLeft = 0;
+        }
+      }
+      rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
 
   const scrollByCard = (dir) => {
     scrollerRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
@@ -68,12 +89,14 @@ export default function TrendingSarees() {
 
       <div
         ref={scrollerRef}
-        className="reveal-up flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        onMouseEnter={() => (isHoveringRef.current = true)}
+        onMouseLeave={() => (isHoveringRef.current = false)}
+        className="reveal-up flex gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {products.map((product) => (
+        {displayProducts.map((product, i) => (
           <TiltCard
-            key={product.id}
-            className="flex w-[300px] shrink-0 snap-start flex-col rounded-3xl bg-white p-4 shadow-neu"
+            key={`${product.id}-${i}`}
+            className="flex w-[300px] shrink-0 flex-col rounded-3xl bg-white p-4 shadow-neu"
             tiltAmount={6}
           >
             <div className="relative h-72 overflow-hidden rounded-2xl bg-[#FAF7F2]">

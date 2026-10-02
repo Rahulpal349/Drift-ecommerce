@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Heart, ShoppingBag, Star, SlidersHorizontal, ChevronDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ProductShowcase from "@/components/ProductShowcase";
 import products from "@/data/products";
 import Link from "next/link";
 
@@ -33,9 +34,9 @@ export default function ShopPage() {
 
   return (
     <main className="bg-offwhite min-h-screen">
-      <Navbar />
+      <ProductShowcase />
 
-      <div className="px-6 pt-4 pb-8 md:px-14">
+      <div className="px-6 pt-16 pb-8 md:px-14">
         {/* Header */}
         <div className="mb-8">
           <p className="text-xs font-semibold tracking-[0.25em] text-amber-700/60 mb-2">EXPLORE</p>
@@ -115,12 +116,14 @@ export default function ShopPage() {
                   Quick Add to Cart
                 </button>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  draggable={false}
-                />
+                <Link href={`/product/${product.id}`} className="block h-full w-full">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    draggable={false}
+                  />
+                </Link>
               </div>
               <div className="mt-3">
                 <div className="flex items-center gap-1 mb-1">
@@ -128,7 +131,9 @@ export default function ShopPage() {
                   <span className="text-xs font-semibold text-ink">{product.rating}</span>
                   <span className="text-xs text-ink/40">({product.reviews})</span>
                 </div>
-                <p className="text-sm font-semibold text-ink leading-snug">{product.name}</p>
+                <Link href={`/product/${product.id}`}>
+                  <p className="text-sm font-semibold text-ink leading-snug hover:underline">{product.name}</p>
+                </Link>
                 <p className="mt-0.5 text-xs text-ink/40">{product.fabric}</p>
                 <div className="mt-1.5 flex items-baseline gap-2">
                   <span className="text-sm font-bold text-ink">₹{product.price.toLocaleString("en-IN")}</span>

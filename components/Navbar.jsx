@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, ShoppingBag, Heart, Menu, X } from "lucide-react";
+import { Search, ShoppingBag, Heart, Menu, X, Sparkle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -13,15 +13,16 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function Navbar({ cartCount = 2 }) {
+export default function Navbar({ cartCount = 0 }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <>
       <nav className="flex items-center justify-between gap-4 px-6 py-5 md:px-10">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5 text-ink hover:opacity-80 transition-opacity">
-          <span className="font-serif text-2xl font-semibold tracking-tight lowercase italic">drift.</span>
+        <Link href="/" className="flex shrink-0 items-center gap-2 text-ink hover:opacity-80 transition-opacity">
+          <Sparkle size={20} className="fill-ink" strokeWidth={1.5} />
+          <span className="text-[17px] font-bold tracking-[0.25em]">DRIFT</span>
         </Link>
 
         <ul className="hidden items-center gap-7 text-[13px] font-medium tracking-wide text-ink/65 lg:flex">
@@ -61,9 +62,11 @@ export default function Navbar({ cartCount = 2 }) {
             className="relative flex h-9 w-9 items-center justify-center rounded-full text-ink/80 transition-colors hover:bg-black/[0.04]"
           >
             <ShoppingBag size={17} strokeWidth={1.75} />
-            <span className="absolute right-0.5 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-700 text-[9px] font-semibold text-white">
-              {cartCount}
-            </span>
+            {cartCount > 0 && (
+              <span className="absolute right-0.5 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-700 text-[9px] font-semibold text-white">
+                {cartCount}
+              </span>
+            )}
           </Link>
           <button
             aria-label="Menu"

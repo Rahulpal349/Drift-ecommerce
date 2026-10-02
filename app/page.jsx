@@ -13,9 +13,9 @@ export default function Home() {
       <Hero />
       <PopularPicks />
       <IdentityShowcase />
+      <NewArrivals />
       <CategoryGrid />
       <FeaturedProduct />
-      <NewArrivals />
       <Testimonials />
       <Footer />
     </main>
