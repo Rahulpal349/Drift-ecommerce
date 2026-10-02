@@ -1,14 +1,88 @@
 "use client";
 
 import { Star } from "lucide-react";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const testimonials = [
+  {
+    text: "The Banarasi silk saree I ordered was absolutely stunning. The zari work is intricate and the fabric quality is exceptional. It was the highlight of my sister's wedding!",
+    name: "Priya Sharma",
+    role: "Verified Buyer",
+    location: "Mumbai",
+    rating: 5,
+  },
+  {
+    text: "I've been searching for authentic Kanjivaram sarees online and Drift exceeded my expectations. The colors are vibrant, the silk is genuine, and the delivery was prompt.",
+    name: "Ananya Reddy",
+    role: "Verified Buyer",
+    location: "Hyderabad",
+    rating: 5,
+  },
+  {
+    text: "Beautiful cotton sarees perfect for daily wear. The Jamdani weaving is delicate and the fabric is so comfortable. Already ordered three more in different colors!",
+    name: "Meera Iyer",
+    role: "Verified Buyer",
+    location: "Chennai",
+    rating: 4,
+  },
+];
+
+function TestimonialCard({ item, isAmber, className = "" }) {
+  return (
+    <div
+      className={`test-reveal rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative shadow-sm border h-full min-h-[380px] ${
+        isAmber
+          ? "bg-amber-800 text-white border-amber-700"
+          : "bg-[#FAF7F2] border-amber-100"
+      } ${className}`}
+    >
+      <div>
+        <div className="flex items-center gap-1 mb-6">
+          {[...Array(item.rating)].map((_, i) => (
+            <Star key={i} className={`${isAmber ? "fill-amber-300 text-amber-300" : "fill-amber-400 text-amber-400"}`} size={16} />
+          ))}
+        </div>
+        <span className={`text-[80px] leading-none absolute -top-2 right-8 select-none font-serif ${
+          isAmber ? "text-white/15" : "text-amber-200/40"
+        }`}>
+          "
+        </span>
+        <div className="relative z-10 mb-10">
+          <p className={`text-[16px] leading-[1.8] font-medium ${
+            isAmber ? "text-white/90" : "text-ink/70"
+          }`}>
+            {item.text}
+          </p>
+        </div>
+      </div>
+      <div className="flex items-center gap-4 mt-auto">
+        <div className={`h-12 w-12 rounded-full flex items-center justify-center text-lg font-bold ${
+          isAmber ? "bg-white/20 text-white" : "bg-amber-100 text-amber-800"
+        }`}>
+          {item.name.charAt(0)}
+        </div>
+        <div>
+          <h4 className={`font-bold text-lg tracking-tight ${isAmber ? "text-white" : "text-ink"}`}>{item.name}</h4>
+          <p className={`text-sm font-medium ${isAmber ? "text-white/60" : "text-ink/40"}`}>
+            {item.role} • {item.location}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Testimonials() {
   const sectionRef = useRef(null);
+  const scrollerRef = useRef(null);
+  const isHoveringRef = useRef(false);
+  const rafRef = useRef(null);
+
+  const displayTestimonials = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -29,34 +103,34 @@ export default function Testimonials() {
     return () => ctx.revert();
   }, []);
 
-  const testimonials = [
-    {
-      text: "The Banarasi silk saree I ordered was absolutely stunning. The zari work is intricate and the fabric quality is exceptional. It was the highlight of my sister's wedding!",
-      name: "Priya Sharma",
-      role: "Verified Buyer",
-      location: "Mumbai",
-      rating: 5,
-    },
-    {
-      text: "I've been searching for authentic Kanjivaram sarees online and Drift exceeded my expectations. The colors are vibrant, the silk is genuine, and the delivery was prompt.",
-      name: "Ananya Reddy",
-      role: "Verified Buyer",
-      location: "Hyderabad",
-      rating: 5,
-    },
-    {
-      text: "Beautiful cotton sarees perfect for daily wear. The Jamdani weaving is delicate and the fabric is so comfortable. Already ordered three more in different colors!",
-      name: "Meera Iyer",
-      role: "Verified Buyer",
-      location: "Chennai",
-      rating: 4,
-    },
-  ];
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    let speed = 0.3;
+
+    const scroll = () => {
+      if (!isHoveringRef.current && window.innerWidth < 768 && scroller.children.length > 0) {
+        scroller.scrollLeft += speed;
+        const resetPoint = scroller.children[testimonials.length].offsetLeft - scroller.children[0].offsetLeft;
+        
+        if (scroller.scrollLeft >= resetPoint) {
+          scroller.scrollLeft = 0;
+        }
+      }
+      rafRef.current = requestAnimationFrame(scroll);
+    };
+
+    rafRef.current = requestAnimationFrame(scroll);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   return (
     <section ref={sectionRef} className="w-full bg-white py-24 px-6 md:px-8 lg:px-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24">
           <div>
             <p className="test-reveal text-xs font-semibold tracking-[0.25em] text-amber-700/60 mb-3">CUSTOMER LOVE</p>
@@ -89,54 +163,33 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-start">
+        {/* Desktop Testimonials Grid */}
+        <div className="hidden md:grid grid-cols-3 gap-6 lg:gap-8 items-start">
           {testimonials.map((item, idx) => (
-            <div
-              key={idx}
-              className={`test-reveal rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative shadow-sm border h-full min-h-[380px] ${
-                idx === 1
-                  ? "bg-amber-800 text-white border-amber-700 md:translate-y-12"
-                  : "bg-[#FAF7F2] border-amber-100"
-              }`}
-            >
-              <div>
-                {/* Stars */}
-                <div className="flex items-center gap-1 mb-6">
-                  {[...Array(item.rating)].map((_, i) => (
-                    <Star key={i} className={`${idx === 1 ? "fill-amber-300 text-amber-300" : "fill-amber-400 text-amber-400"}`} size={16} />
-                  ))}
-                </div>
+            <TestimonialCard 
+              key={idx} 
+              item={item} 
+              isAmber={idx === 1} 
+              className={idx === 1 ? "md:translate-y-12" : ""}
+            />
+          ))}
+        </div>
 
-                {/* Large decorative quotes */}
-                <span className={`text-[80px] leading-none absolute -top-2 right-8 select-none font-serif ${
-                  idx === 1 ? "text-white/15" : "text-amber-200/40"
-                }`}>
-                  "
-                </span>
-                
-                <div className="relative z-10 mb-10">
-                  <p className={`text-[16px] leading-[1.8] font-medium ${
-                    idx === 1 ? "text-white/90" : "text-ink/70"
-                  }`}>
-                    {item.text}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 mt-auto">
-                <div className={`h-12 w-12 rounded-full flex items-center justify-center text-lg font-bold ${
-                  idx === 1 ? "bg-white/20 text-white" : "bg-amber-100 text-amber-800"
-                }`}>
-                  {item.name.charAt(0)}
-                </div>
-                <div>
-                  <h4 className={`font-bold text-lg tracking-tight ${idx === 1 ? "text-white" : "text-ink"}`}>{item.name}</h4>
-                  <p className={`text-sm font-medium ${idx === 1 ? "text-white/60" : "text-ink/40"}`}>
-                    {item.role} • {item.location}
-                  </p>
-                </div>
-              </div>
+        {/* Mobile Testimonials Scroller */}
+        <div 
+          ref={scrollerRef}
+          className="flex md:hidden gap-4 overflow-x-auto pb-4 pt-4 -mx-6 px-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          onMouseEnter={() => (isHoveringRef.current = true)}
+          onMouseLeave={() => (isHoveringRef.current = false)}
+          onTouchStart={() => (isHoveringRef.current = true)}
+          onTouchEnd={() => (isHoveringRef.current = false)}
+        >
+          {displayTestimonials.map((item, idx) => (
+            <div key={`mobile-${idx}`} className="w-[310px] shrink-0">
+              <TestimonialCard 
+                item={item} 
+                isAmber={idx % testimonials.length === 1} 
+              />
             </div>
           ))}
         </div>

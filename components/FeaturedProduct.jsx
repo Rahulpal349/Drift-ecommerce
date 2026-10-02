@@ -53,12 +53,12 @@ export default function FeaturedCollections() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
           {collections.map((col) => (
             <Link
               key={col.key}
               href={`/collections?type=${col.key}`}
-              className="feat-reveal group relative h-[320px] overflow-hidden rounded-3xl bg-white shadow-neu"
+              className="feat-reveal group relative h-[250px] sm:h-[320px] overflow-hidden rounded-2xl sm:rounded-3xl bg-white shadow-neu"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -67,14 +67,14 @@ export default function FeaturedCollections() {
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 draggable={false}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="text-xl font-bold text-white">{col.label}</p>
-                <p className="mt-1 text-sm text-white/70">{col.count}</p>
-                <div className="mt-4 flex items-center gap-2">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink transition-transform group-hover:scale-105">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                <p className="text-sm sm:text-xl font-bold text-white leading-tight">{col.label}</p>
+                <p className="mt-0.5 sm:mt-1 text-[10px] sm:text-sm text-white/70">{col.count}</p>
+                <div className="mt-2 sm:mt-4 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 sm:gap-2 rounded-full bg-white px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs font-semibold text-ink transition-transform group-hover:scale-105">
                     Shop Now
-                    <ShoppingBag size={13} strokeWidth={2} />
+                    <ShoppingBag size={12} className="sm:h-[13px] sm:w-[13px]" strokeWidth={2} />
                   </span>
                 </div>
               </div>
