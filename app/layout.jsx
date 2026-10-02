@@ -16,8 +16,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "DRIFY — Streetwear. Redefined.",
-  description: "Bold looks. Clean fits. Built to stand out anywhere.",
+  title: "Drift — Premium Handcrafted Sarees",
+  description: "Timeless elegance woven into every thread. Shop premium Banarasi, Kanjivaram, Cotton, and designer sarees.",
 };
 
 export default function RootLayout({ children }) {

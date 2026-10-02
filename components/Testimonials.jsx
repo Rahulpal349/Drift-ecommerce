@@ -1,7 +1,6 @@
 "use client";
 
 import { Star } from "lucide-react";
-import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -29,24 +28,28 @@ export default function Testimonials() {
     }, sectionRef);
     return () => ctx.revert();
   }, []);
+
   const testimonials = [
     {
-      text: "Real People Real Vibes Every Pair You See Here Has Already Hit The Streets And The Reviews Say It All Check Out What Our Crew Thinks About Their New Kicks.",
-      name: "Bruce Frappier",
-      role: "Brand Manager",
-      avatar: "/others/14411b388e42a556faf51faa50522971.jpg",
+      text: "The Banarasi silk saree I ordered was absolutely stunning. The zari work is intricate and the fabric quality is exceptional. It was the highlight of my sister's wedding!",
+      name: "Priya Sharma",
+      role: "Verified Buyer",
+      location: "Mumbai",
+      rating: 5,
     },
     {
-      text: "Every Step Tells A Story Here's What Our Customers Have To Say About The Comfort, Fit, And Feel That Make Our Shoes Their Everyday Choice Just Honest Feedback From.",
-      name: "Dorene Belair",
-      role: "CEO Of Company",
-      avatar: "/others/669c6ab97e3cd98666f855a198ec26d1.jpg",
+      text: "I've been searching for authentic Kanjivaram sarees online and Drift exceeded my expectations. The colors are vibrant, the silk is genuine, and the delivery was prompt.",
+      name: "Ananya Reddy",
+      role: "Verified Buyer",
+      location: "Hyderabad",
+      rating: 5,
     },
     {
-      text: "We Could Talk About Comfort And Style All Day, But Our Community Says It Better. Read The Real Stories From People Who Live In Our Shoes Every Day.",
-      name: "Bruce Frappier",
-      role: "Brand Manager",
-      avatar: "/others/7d04b9d6bb5a78082b38a6fa7ee18766.jpg",
+      text: "Beautiful cotton sarees perfect for daily wear. The Jamdani weaving is delicate and the fabric is so comfortable. Already ordered three more in different colors!",
+      name: "Meera Iyer",
+      role: "Verified Buyer",
+      location: "Chennai",
+      rating: 4,
     },
   ];
 
@@ -55,31 +58,32 @@ export default function Testimonials() {
       <div className="max-w-[1400px] mx-auto">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 md:mb-24">
-          <h2 className="test-reveal text-5xl md:text-6xl lg:text-7xl font-bold text-ink leading-[1.05] tracking-tight max-w-2xl font-sans">
-            Every Pair Tells A <br /> Story Here's Theirs
-          </h2>
+          <div>
+            <p className="test-reveal text-xs font-semibold tracking-[0.25em] text-amber-700/60 mb-3">CUSTOMER LOVE</p>
+            <h2 className="test-reveal text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-[1.05] tracking-tight max-w-2xl">
+              What Our <span className="font-serif italic text-amber-800/80">Customers</span> Say
+            </h2>
+          </div>
 
           <div className="test-reveal flex items-center gap-6 pb-2">
-            <div className="flex -space-x-4">
-              <div className="relative w-12 h-12 rounded-full border-[3px] border-white overflow-hidden shadow-sm">
-                <Image src="/others/146c86a67aec1b902ab4ecef836dfb04.jpg" alt="Avatar 1" fill className="object-cover" />
-              </div>
-              <div className="relative w-12 h-12 rounded-full border-[3px] border-white overflow-hidden shadow-sm">
-                <Image src="/others/38a22370fd90c4ec6b9f40ba1c0b0d01.jpg" alt="Avatar 2" fill className="object-cover" />
-              </div>
-              <div className="relative w-12 h-12 rounded-full border-[3px] border-white overflow-hidden shadow-sm">
-                <Image src="/others/517ffdbc33620528524824c768da0933.jpg" alt="Avatar 3" fill className="object-cover" />
-              </div>
+            <div className="flex -space-x-3">
+              {["#722F37", "#6B2FA0", "#008080"].map((hex, i) => (
+                <span
+                  key={hex}
+                  className="h-10 w-10 rounded-full border-[3px] border-white shadow-sm"
+                  style={{ backgroundColor: hex, zIndex: 3 - i }}
+                />
+              ))}
             </div>
             <div className="flex flex-col gap-0.5">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="fill-amber-400 text-amber-400" size={16} />
                 ))}
-                <span className="text-ink font-bold ml-1 text-sm">4.5/5</span>
+                <span className="text-ink font-bold ml-1 text-sm">4.8/5</span>
               </div>
               <p className="text-sm font-semibold text-ink/50 tracking-wide">
-                Trusted By 100+ Customer
+                Trusted by 5000+ Customers
               </p>
             </div>
           </div>
@@ -90,30 +94,47 @@ export default function Testimonials() {
           {testimonials.map((item, idx) => (
             <div
               key={idx}
-              className={`test-reveal bg-[#F9F9F9] rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative shadow-sm border border-gray-50 h-full min-h-[380px] ${
-                idx === 1 ? "md:translate-y-12" : ""
+              className={`test-reveal rounded-[2.5rem] p-8 md:p-10 flex flex-col justify-between relative shadow-sm border h-full min-h-[380px] ${
+                idx === 1
+                  ? "bg-amber-800 text-white border-amber-700 md:translate-y-12"
+                  : "bg-[#FAF7F2] border-amber-100"
               }`}
             >
               <div>
+                {/* Stars */}
+                <div className="flex items-center gap-1 mb-6">
+                  {[...Array(item.rating)].map((_, i) => (
+                    <Star key={i} className={`${idx === 1 ? "fill-amber-300 text-amber-300" : "fill-amber-400 text-amber-400"}`} size={16} />
+                  ))}
+                </div>
+
                 {/* Large decorative quotes */}
-                <span className="text-[100px] text-gray-200/60 font-serif leading-none absolute -top-4 left-8 select-none">
-                  “
+                <span className={`text-[80px] leading-none absolute -top-2 right-8 select-none font-serif ${
+                  idx === 1 ? "text-white/15" : "text-amber-200/40"
+                }`}>
+                  "
                 </span>
                 
-                <div className="relative z-10 border-l-2 border-dashed border-gray-300/80 pl-6 ml-4 mt-16 mb-10">
-                  <p className="text-ink/70 text-[17px] leading-[1.8] font-medium tracking-wide">
+                <div className="relative z-10 mb-10">
+                  <p className={`text-[16px] leading-[1.8] font-medium ${
+                    idx === 1 ? "text-white/90" : "text-ink/70"
+                  }`}>
                     {item.text}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4 mt-auto">
-                <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 shadow-sm">
-                  <Image src={item.avatar} alt={item.name} fill className="object-cover" />
+                <div className={`h-12 w-12 rounded-full flex items-center justify-center text-lg font-bold ${
+                  idx === 1 ? "bg-white/20 text-white" : "bg-amber-100 text-amber-800"
+                }`}>
+                  {item.name.charAt(0)}
                 </div>
                 <div>
-                  <h4 className="font-bold text-ink text-lg tracking-tight">{item.name}</h4>
-                  <p className="text-sm font-semibold text-ink/40 tracking-wide">{item.role}</p>
+                  <h4 className={`font-bold text-lg tracking-tight ${idx === 1 ? "text-white" : "text-ink"}`}>{item.name}</h4>
+                  <p className={`text-sm font-medium ${idx === 1 ? "text-white/60" : "text-ink/40"}`}>
+                    {item.role} • {item.location}
+                  </p>
                 </div>
               </div>
             </div>

@@ -3,42 +3,48 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Heart, Star } from "lucide-react";
 import TiltCard from "./TiltCard";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const arrivals = [
   {
-    key: "sage-linen",
-    image: "/others/8028e4627b84d16f84581f0bc379e0ad.jpg",
-    name: "Sage Linen Shirt",
-    blurb: "Band-collar linen shirt in soft sage, paired with wide white trousers.",
-    price: 6474.0,
-    originalPrice: 7968.0,
+    key: "organza-bridal",
+    image: "/images/sarees/organza.jpg",
+    name: "Ivory Gold Organza",
+    blurb: "Sheer organza with intricate gold thread embroidery and scalloped borders.",
+    price: 9499,
+    originalPrice: 13999,
+    badge: "New",
   },
   {
-    key: "teal-camp-shirt",
-    image: "/others/f3ad03722e2a8cdb3bfbd672040769f5.jpg",
-    name: "Teal Camp Shirt",
-    blurb: "Retro camp-collar shirt in teal, layered over cream wide-leg pants.",
-    price: 6806.0,
+    key: "tussar-art",
+    image: "/images/sarees/tussar.jpg",
+    name: "Madhubani Tussar Silk",
+    blurb: "Handpainted Madhubani art on natural Tussar silk with peacock motifs.",
+    price: 6999,
     originalPrice: null,
+    badge: "New",
   },
   {
-    key: "shadow-denim-set",
-    image: "/others/146c86a67aec1b902ab4ecef836dfb04.jpg",
-    name: "Shadow Tank Denim Set",
-    blurb: "Fitted black tank paired with light-wash wide-leg denim.",
-    price: 7304.0,
-    originalPrice: 8632.0,
+    key: "georgette-sequin",
+    image: "/images/sarees/georgette.jpg",
+    name: "Rose Pink Sequin Georgette",
+    blurb: "Heavy sequin embroidery on flowing georgette with paisley work.",
+    price: 7999,
+    originalPrice: 10999,
+    badge: "Sale",
   },
   {
-    key: "ivory-corset",
-    image: "/others/9e63a89253fd2a7372e9e4732a586374.jpg",
-    name: "Ivory Corset Top",
-    blurb: "Structured corset top styled with light-wash straight denim.",
-    price: 6142.0,
+    key: "cotton-jamdani",
+    image: "/images/sarees/cotton.jpg",
+    name: "Sky Blue Jamdani Cotton",
+    blurb: "Lightweight handwoven Jamdani with delicate white floral motifs.",
+    price: 3499,
     originalPrice: null,
+    badge: "New",
   },
 ];
 
@@ -67,29 +73,40 @@ export default function NewArrivals() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full bg-offwhite px-6 pt-12 pb-24 md:px-14 md:pt-16 md:pb-32">
+    <section ref={sectionRef} className="w-full bg-offwhite px-6 pt-16 pb-24 md:px-14 md:pt-20 md:pb-32">
       <div className="arrival-reveal mb-10 flex items-end justify-between">
         <div>
-          <p className="text-xs font-semibold tracking-[0.25em] text-ink/40">JUST ARRIVED</p>
+          <p className="text-xs font-semibold tracking-[0.25em] text-amber-700/60">JUST ARRIVED</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink md:text-4xl">
             New Arrivals
           </h2>
         </div>
-        <a
-          href="#shop"
-          className="hidden text-xs font-semibold tracking-wide text-ink/60 underline underline-offset-4 transition-colors hover:text-ink sm:block"
+        <Link
+          href="/shop"
+          className="hidden text-xs font-semibold tracking-wide text-amber-800 underline underline-offset-4 decoration-amber-300 transition-colors hover:text-ink sm:block"
         >
-          View All Products
-        </a>
+          View All Sarees
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
         {arrivals.map((item) => (
           <div key={item.key} className="arrival-reveal group flex flex-col">
-            <TiltCard tiltAmount={10} className="relative flex aspect-[3/4] items-end overflow-hidden rounded-3xl bg-white shadow-neu">
-              <span className="absolute left-4 top-4 z-10 rounded-full bg-ink px-3 py-1 text-[10px] font-semibold tracking-wide text-white">
-                NEW
+            <TiltCard tiltAmount={8} className="relative flex aspect-[3/4] items-end overflow-hidden rounded-3xl bg-white shadow-neu">
+              {/* Badge */}
+              <span className={`absolute left-4 top-4 z-10 rounded-full px-3 py-1 text-[10px] font-semibold tracking-wide text-white ${
+                item.badge === "Sale" ? "bg-rose-600" : "bg-amber-800"
+              }`}>
+                {item.badge}
               </span>
+              {/* Wishlist */}
+              <button
+                type="button"
+                aria-label="Add to wishlist"
+                className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 backdrop-blur-sm text-ink/50 shadow-sm transition-colors hover:text-rose-500"
+              >
+                <Heart size={14} strokeWidth={2} />
+              </button>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={item.image}
@@ -101,10 +118,10 @@ export default function NewArrivals() {
             <p className="mt-4 text-sm font-semibold text-ink">{item.name}</p>
             <p className="mt-1 text-xs leading-snug text-ink/50">{item.blurb}</p>
             <p className="mt-2 text-sm font-semibold text-ink">
-              ₹{item.price.toFixed(2)}
+              ₹{item.price.toLocaleString("en-IN")}
               {item.originalPrice && (
                 <span className="ml-2 text-ink/35 line-through">
-                  ₹{item.originalPrice.toFixed(2)}
+                  ₹{item.originalPrice.toLocaleString("en-IN")}
                 </span>
               )}
             </p>

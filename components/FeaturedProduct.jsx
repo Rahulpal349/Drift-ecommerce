@@ -1,14 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { Star, Heart, TrendingUp, Package, Gift, LineChart, ChevronDown } from "lucide-react";
+import { Star, Heart, ShoppingBag, Truck, RotateCcw, ShieldCheck } from "lucide-react";
 import { useState, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function FeaturedProduct() {
+const collections = [
+  { key: "bestsellers", label: "Best Sellers", count: "25 Sarees", image: "/images/sarees/kanjivaram.jpg" },
+  { key: "new-arrivals", label: "New Arrivals", count: "18 Sarees", image: "/images/sarees/organza.jpg" },
+  { key: "festive", label: "Festive Collection", count: "30 Sarees", image: "/images/sarees/bandhani.jpg" },
+  { key: "wedding", label: "Wedding Collection", count: "22 Sarees", image: "/images/sarees/banarasi.jpg" },
+  { key: "everyday", label: "Everyday Elegance", count: "40 Sarees", image: "/images/sarees/cotton.jpg" },
+  { key: "under-1999", label: "Under ₹1,999", count: "15 Sarees", image: "/images/sarees/chiffon.jpg" },
+];
+
+export default function FeaturedCollections() {
   const sectionRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -29,130 +39,66 @@ export default function FeaturedProduct() {
     }, sectionRef);
     return () => ctx.revert();
   }, []);
-  const images = [
-    "/others/14411b388e42a556faf51faa50522971.jpg",
-    "/others/146c86a67aec1b902ab4ecef836dfb04.jpg",
-    "/others/669c6ab97e3cd98666f855a198ec26d1.jpg",
-    "/others/517ffdbc33620528524824c768da0933.jpg",
-  ];
-
-  const [activeImage, setActiveImage] = useState(images[0]);
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#F9F9F9] py-16 px-4 md:px-8">
-      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:items-start">
-        
-        {/* Left: Images */}
-        <div className="feat-reveal w-full lg:w-1/2 flex flex-col gap-4">
-          <div className="relative w-full aspect-[4/3] sm:aspect-square rounded-[2rem] overflow-hidden bg-[#C9C9C9]">
-            <Image 
-              src={activeImage} 
-              alt="Nike Air Main" 
-              fill 
-              className="object-cover object-top" 
-            />
-          </div>
-          <div className="grid grid-cols-4 gap-4">
-            {images.map((img, idx) => (
-              <div 
-                key={idx} 
-                onClick={() => setActiveImage(img)}
-                className={`relative aspect-square rounded-[1.25rem] overflow-hidden cursor-pointer transition-all duration-300 border-2 ${
-                  activeImage === img ? 'border-yellow-400 p-0.5' : 'border-transparent'
-                } bg-white shadow-sm hover:shadow-md`}
-              >
-                <div className="relative w-full h-full rounded-xl overflow-hidden">
-                  <Image src={img} alt={`Thumbnail ${idx}`} fill className="object-cover object-top" />
-                </div>
-              </div>
-            ))}
-          </div>
+    <section ref={sectionRef} className="w-full bg-[#FAF7F2] py-20 px-6 md:px-14">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="feat-reveal mb-12 text-center">
+          <p className="text-xs font-semibold tracking-[0.25em] text-amber-700/60 mb-3">HANDPICKED FOR YOU</p>
+          <h2 className="text-3xl font-bold tracking-tight text-ink md:text-4xl">
+            Featured Collections
+          </h2>
+          <p className="mt-3 mx-auto max-w-md text-sm text-ink/50">
+            Curated selections for every occasion — from festive celebrations to everyday elegance.
+          </p>
         </div>
 
-        {/* Right: Details */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center py-4 lg:py-8">
-          <h2 className="feat-reveal text-6xl md:text-7xl font-bold text-ink mb-6 tracking-tight font-sans">
-            Nike Air
-          </h2>
-          
-          <p className="feat-reveal text-gray-500 text-lg leading-relaxed mb-8 max-w-xl">
-            TOMS Aira, Designed For Comfort That Feels As Fresh As The Morning Air Lightweight Canvas, Soft Cushioning, And Effortless Style Made For Days That Move At Your Pace.
-          </p>
-
-          <div className="feat-reveal flex items-center gap-6 mb-10">
-            <span className="text-4xl font-bold text-ink">₹66,400.00</span>
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star 
-                  key={i} 
-                  size={18} 
-                  className={i < 4 ? "fill-yellow-400 text-yellow-400" : "fill-yellow-400 text-yellow-400"} 
-                  // Wait, the mockup shows 5 stars, maybe 4.5. I'll just color 5 stars but say 4.5.
-                />
-              ))}
-              <span className="ml-2 font-bold text-lg text-ink">4.5</span>
-            </div>
-          </div>
-
-          <div className="feat-reveal mb-8 max-w-xl">
-            <h3 className="font-semibold text-lg text-ink mb-4">Available Options:</h3>
-            <div className="flex flex-col sm:flex-row gap-4">
-              {/* To Order Card */}
-              <div className="flex-1 rounded-[1.5rem] bg-white p-5 flex items-center gap-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100">
-                <div className="w-12 h-12 rounded-full bg-[#F5F5F5] flex items-center justify-center shrink-0">
-                  <Gift className="text-gray-600" size={24} />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 font-medium">To Order</p>
-                  <p className="font-bold text-xl text-ink">₹2,14,140</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {collections.map((col) => (
+            <Link
+              key={col.key}
+              href={`/collections?type=${col.key}`}
+              className="feat-reveal group relative h-[320px] overflow-hidden rounded-3xl bg-white shadow-neu"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={col.image}
+                alt={col.label}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                draggable={false}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-xl font-bold text-white">{col.label}</p>
+                <p className="mt-1 text-sm text-white/70">{col.count}</p>
+                <div className="mt-4 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-ink transition-transform group-hover:scale-105">
+                    Shop Now
+                    <ShoppingBag size={13} strokeWidth={2} />
+                  </span>
                 </div>
               </div>
-              
-              {/* In Stock Card */}
-              <div className="flex-1 rounded-[1.5rem] bg-white p-5 flex items-center gap-5 shadow-[0_2px_10px_rgba(0,0,0,0.02)] border border-gray-100">
-                <div className="w-12 h-12 rounded-full bg-[#F5F5F5] flex items-center justify-center shrink-0">
-                  <LineChart className="text-gray-600" size={24} />
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 font-medium">In Stock</p>
-                  <p className="font-bold text-xl text-ink">₹4,96,340</p>
-                </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Trust badges */}
+        <div className="feat-reveal mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {[
+            { icon: Truck, title: "Free Shipping", desc: "On orders above ₹999 across India" },
+            { icon: RotateCcw, title: "Easy Returns", desc: "7-day hassle-free return policy" },
+            { icon: ShieldCheck, title: "Authenticity Guaranteed", desc: "100% genuine handcrafted sarees" },
+          ].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-neu">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-800">
+                <Icon size={22} strokeWidth={1.75} />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-ink">{title}</p>
+                <p className="mt-0.5 text-xs text-ink/50">{desc}</p>
               </div>
             </div>
-          </div>
-
-          <div className="feat-reveal mb-10 max-w-xl">
-            <h3 className="font-semibold text-lg text-ink mb-4">size Chart</h3>
-            <div className="flex gap-4 items-center">
-              <div className="relative flex-1">
-                <select className="w-full h-14 rounded-full border border-gray-300 px-6 text-ink font-medium appearance-none bg-transparent outline-none focus:border-yellow-400 transition-colors cursor-pointer">
-                  <option>Size</option>
-                  <option>US 8</option>
-                  <option>US 9</option>
-                  <option>US 10</option>
-                </select>
-                <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={20} />
-              </div>
-
-              <div className="relative flex-1">
-                <select className="w-full h-14 rounded-full border border-gray-300 px-6 text-ink font-medium appearance-none bg-transparent outline-none focus:border-yellow-400 transition-colors cursor-pointer">
-                  <option>Color</option>
-                  <option>Orange</option>
-                  <option>Black</option>
-                  <option>White</option>
-                </select>
-                <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={20} />
-              </div>
-
-              <button className="w-14 h-14 rounded-full bg-[#fceb20] flex items-center justify-center shrink-0 hover:bg-[#e6d61a] transition-colors shadow-sm">
-                <Heart className="text-ink" size={20} />
-              </button>
-            </div>
-          </div>
-
-          <button className="feat-reveal w-full max-w-xl h-16 rounded-full bg-white border border-gray-200 shadow-sm font-bold text-lg text-ink hover:bg-gray-50 transition-colors">
-            My Drip Bag
-          </button>
+          ))}
         </div>
       </div>
     </section>

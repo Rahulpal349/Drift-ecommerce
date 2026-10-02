@@ -77,7 +77,6 @@ export default function ProductShowcase() {
   const [mounted, setMounted] = useState(false);
   const [order, setOrder] = useState(products.map((_, i) => i)); // [0, 1, 2, 3, 4, 5]
 
-  const [selectedSize, setSelectedSize] = useState(products[0].defaultSize);
   const [selectedColor, setSelectedColor] = useState(products[0].colors[0].hex);
 
   const detailsRef = useRef(null);
@@ -95,7 +94,6 @@ export default function ProductShowcase() {
   }, []);
 
   useEffect(() => {
-    setSelectedSize(activeProduct.defaultSize);
     setSelectedColor(activeProduct.colors[0].hex);
   }, [activeProduct]);
 
@@ -365,27 +363,6 @@ export default function ProductShowcase() {
               <p className="mt-4 text-2xl font-semibold text-ink">
                 ₹{activeProduct.price.toFixed(2)}
               </p>
-
-              <div className="mt-8">
-                <p className="text-xs font-semibold tracking-wide text-ink/50">
-                  SELECT SIZE (US)
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {activeProduct.sizes.map((size) => (
-                    <button
-                      key={size}
-                      type="button"
-                      onClick={() => setSelectedSize(size)}
-                      className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-medium transition-colors ${selectedSize === size
-                          ? "border-2 border-ink text-ink"
-                          : "border border-black/15 text-ink/60 hover:border-ink/40"
-                        }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
-              </div>
 
               <div className="mt-7">
                 <p className="text-xs font-semibold tracking-wide text-ink/50">

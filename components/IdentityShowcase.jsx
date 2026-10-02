@@ -8,14 +8,14 @@ import { ArrowDown } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 const gallery = [
-  "/others/669c6ab97e3cd98666f855a198ec26d1.jpg",
-  "/others/14411b388e42a556faf51faa50522971.jpg",
-  "/others/8028e4627b84d16f84581f0bc379e0ad.jpg",
-  "/others/517ffdbc33620528524824c768da0933.jpg",
-  "/others/f3ad03722e2a8cdb3bfbd672040769f5.jpg",
-  "/others/146c86a67aec1b902ab4ecef836dfb04.jpg",
-  "/others/b2f7544149fa722f719bf29e515c1de4.jpg",
-  "/others/9e63a89253fd2a7372e9e4732a586374.jpg",
+  "/images/sarees/banarasi.jpg",
+  "/images/sarees/kanjivaram.jpg",
+  "/images/sarees/cotton.jpg",
+  "/images/sarees/georgette.jpg",
+  "/images/sarees/chiffon.jpg",
+  "/images/sarees/organza.jpg",
+  "/images/sarees/tussar.jpg",
+  "/images/sarees/bandhani.jpg",
 ];
 
 const loopedGallery = [...gallery, ...gallery];
@@ -61,14 +61,15 @@ export default function IdentityShowcase() {
   return (
     <section ref={sectionRef} className="w-full overflow-hidden bg-white pt-12 pb-24 md:pt-16 md:pb-32">
       <div className="identity-reveal mx-auto max-w-2xl px-6 text-center">
+        <p className="text-xs font-semibold tracking-[0.25em] text-amber-700/60 mb-4">OUR HERITAGE</p>
         <h2 className="text-3xl font-bold leading-[1.1] tracking-tight text-ink md:text-5xl">
-          Express Your Identity
+          Celebrating the Art
           <br />
-          With Our Unique Style
+          <span className="font-serif italic text-amber-800/80">of Indian Weaving</span>
         </h2>
         <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-ink/50 md:text-base">
-          Showcase your true self with a collection built on bold silhouettes
-          and honest craft — style that speaks before you do.
+          Every saree tells a story of generations of artisans, ancient weaving techniques, 
+          and timeless beauty — draped in tradition, worn with pride.
         </p>
       </div>
 
@@ -78,13 +79,13 @@ export default function IdentityShowcase() {
           {loopedGallery.map((src, i) => (
             <div
               key={`${src}-${i}`}
-              className="relative h-full w-[130px] shrink-0 sm:w-[170px] md:w-[210px]"
+              className="relative h-full w-[150px] shrink-0 sm:w-[190px] md:w-[240px]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={src}
                 alt=""
-                className="h-full w-full object-cover object-top"
+                className="h-full w-full object-cover object-center"
                 draggable={false}
               />
             </div>
@@ -96,7 +97,7 @@ export default function IdentityShowcase() {
       <div className="identity-reveal mx-auto mt-12 flex max-w-5xl flex-col items-center justify-between gap-8 px-6 sm:flex-row">
         <div className="flex items-center gap-3">
           <div className="flex -space-x-3">
-            {["#8C2B23", "#33422F", "#2C3A4B"].map((hex, i) => (
+            {["#722F37", "#6B2FA0", "#008080"].map((hex, i) => (
               <span
                 key={hex}
                 className="h-9 w-9 rounded-full border-2 border-white"
@@ -105,20 +106,20 @@ export default function IdentityShowcase() {
             ))}
           </div>
           <div className="text-left">
-            <p className="text-sm font-semibold text-ink">100+ Reviews</p>
-            <p className="text-xs text-ink/50">Consistent and satisfied</p>
+            <p className="text-sm font-semibold text-ink">5000+ Happy Customers</p>
+            <p className="text-xs text-ink/50">Trusted across India</p>
           </div>
         </div>
 
         <a
-          href="#shop"
-          className="text-xs font-semibold tracking-[0.2em] text-ink/70 underline underline-offset-4 transition-colors hover:text-ink"
+          href="/shop"
+          className="text-xs font-semibold tracking-[0.2em] text-amber-800 underline underline-offset-4 decoration-amber-300 transition-colors hover:text-ink"
         >
-          EXPLORE MORE
+          EXPLORE COLLECTION
         </a>
 
         <div className="relative flex h-20 w-20 items-center justify-center">
-          <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full animate-spin-slow text-ink/40">
+          <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full animate-spin-slow text-amber-700/40">
             <path
               id="scrollCirclePath"
               d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
@@ -130,7 +131,7 @@ export default function IdentityShowcase() {
               </textPath>
             </text>
           </svg>
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-800 text-white">
             <ArrowDown size={13} />
           </span>
         </div>

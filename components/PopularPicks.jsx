@@ -3,27 +3,18 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowLeft, ArrowRight, ShoppingBag } from "lucide-react";
+import { ArrowLeft, ArrowRight, Heart, ShoppingBag, Star } from "lucide-react";
 import products from "@/data/products";
 import TiltCard from "./TiltCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const pickImages = {
-  1: "/others/cc9c75a9eb7c6e5cee1975ceedb0d9a0.jpg",
-  2: "/others/b25521ca27a0862a4f9a6218f48879a2.jpg",
-  3: "/others/7d04b9d6bb5a78082b38a6fa7ee18766.jpg",
-  4: "/others/8a375a79ddef3f5dd316f591ec2b2781.jpg",
-  5: "/others/146c86a67aec1b902ab4ecef836dfb04.jpg",
-  6: "/others/b52b380b08e44f972ce05856a7b9cc9f.jpg",
-};
-
-export default function PopularPicks() {
+export default function TrendingSarees() {
   const sectionRef = useRef(null);
   const scrollerRef = useRef(null);
 
   const scrollByCard = (dir) => {
-    scrollerRef.current?.scrollBy({ left: dir * 300, behavior: "smooth" });
+    scrollerRef.current?.scrollBy({ left: dir * 340, behavior: "smooth" });
   };
 
   useLayoutEffect(() => {
@@ -47,12 +38,12 @@ export default function PopularPicks() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full bg-offwhite px-6 pb-10 pt-12 md:px-14 md:pb-12 md:pt-16">
+    <section ref={sectionRef} className="w-full bg-offwhite px-6 pb-10 pt-16 md:px-14 md:pb-12 md:pt-20">
       <div className="reveal-up mb-10 flex items-end justify-between">
         <div>
-          <p className="text-xs font-semibold tracking-[0.25em] text-ink/40">SHOP THE DROP</p>
+          <p className="text-xs font-semibold tracking-[0.25em] text-amber-700/60">TRENDING NOW</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            Popular Picks
+            Popular Sarees
           </h2>
         </div>
         <div className="hidden items-center gap-2 sm:flex">
@@ -68,7 +59,7 @@ export default function PopularPicks() {
             type="button"
             onClick={() => scrollByCard(1)}
             aria-label="Scroll right"
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-white transition-transform hover:scale-105"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-amber-800 text-white transition-transform hover:scale-105"
           >
             <ArrowRight size={18} />
           </button>
@@ -79,33 +70,62 @@ export default function PopularPicks() {
         ref={scrollerRef}
         className="reveal-up flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {products.slice(0, 5).map((product) => (
+        {products.map((product) => (
           <TiltCard
             key={product.id}
-            className="flex w-[260px] shrink-0 snap-start flex-col rounded-3xl bg-white p-5 shadow-neu"
-            tiltAmount={8}
+            className="flex w-[300px] shrink-0 snap-start flex-col rounded-3xl bg-white p-4 shadow-neu"
+            tiltAmount={6}
           >
-            <div className="relative h-64 overflow-hidden rounded-2xl bg-[#EFEEEA]">
+            <div className="relative h-72 overflow-hidden rounded-2xl bg-[#FAF7F2]">
+              {/* Badge */}
+              {product.badge && (
+                <span className={`absolute left-3 top-3 z-10 rounded-full px-3 py-1 text-[10px] font-semibold tracking-wide text-white ${
+                  product.badge === "Bestseller" ? "bg-amber-700" :
+                  product.badge === "New" ? "bg-emerald-600" :
+                  product.badge === "Sale" ? "bg-rose-600" : "bg-ink"
+                }`}>
+                  {product.badge}
+                </span>
+              )}
+              {/* Wishlist */}
+              <button
+                type="button"
+                aria-label="Add to wishlist"
+                className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 backdrop-blur-sm text-ink/50 shadow-sm transition-colors hover:text-rose-500 hover:bg-white"
+              >
+                <Heart size={14} strokeWidth={2} />
+              </button>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={pickImages[product.id]}
+                src={product.image}
                 alt={product.name}
-                className="absolute inset-0 h-full w-full object-cover object-top"
+                className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-105"
                 draggable={false}
               />
             </div>
-            <div className="mt-4 flex items-start justify-between gap-2">
-              <div>
-                <p className="text-sm font-semibold text-ink">{product.name}</p>
-                <p className="mt-1 text-sm text-ink/50">₹{product.price.toFixed(2)}</p>
+            <div className="mt-4 flex-1">
+              <div className="flex items-center gap-1 mb-1.5">
+                <Star size={12} className="fill-amber-400 text-amber-400" />
+                <span className="text-xs font-semibold text-ink">{product.rating}</span>
+                <span className="text-xs text-ink/40">({product.reviews})</span>
               </div>
-              <button
-                type="button"
-                aria-label={`Add ${product.name} to cart`}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EFEEEA] text-ink transition-colors hover:bg-ink hover:text-white"
-              >
-                <ShoppingBag size={15} strokeWidth={1.75} />
-              </button>
+              <p className="text-sm font-semibold text-ink leading-snug">{product.name}</p>
+              <p className="mt-0.5 text-xs text-ink/40">{product.fabric}</p>
+              <div className="mt-2 flex items-center justify-between">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm font-bold text-ink">₹{product.price.toLocaleString("en-IN")}</span>
+                  {product.originalPrice && (
+                    <span className="text-xs text-ink/35 line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  aria-label={`Add ${product.name} to cart`}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-50 text-amber-800 transition-colors hover:bg-amber-800 hover:text-white"
+                >
+                  <ShoppingBag size={14} strokeWidth={1.75} />
+                </button>
+              </div>
             </div>
           </TiltCard>
         ))}
