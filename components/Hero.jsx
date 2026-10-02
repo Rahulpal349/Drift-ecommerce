@@ -12,6 +12,7 @@ import {
   Instagram,
   Youtube,
 } from "lucide-react";
+import Link from "next/link";
 import Navbar from "./Navbar";
 import VideoCutout from "./VideoCutout";
 
@@ -180,23 +181,23 @@ export default function Hero() {
               </p>
 
               <div className="flex flex-wrap items-center gap-5">
-                <button
+                <Link
+                  href="/shop"
                   ref={addCtaRef}
-                  type="button"
                   className="group flex items-center gap-6 rounded-full bg-amber-800 py-2.5 pl-7 pr-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-[1.02] hover:bg-amber-900"
                 >
                   Explore Collection
                   <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-amber-800 transition-transform group-hover:rotate-45">
                     <ArrowUpRight size={16} />
                   </span>
-                </button>
-                <a
+                </Link>
+                <Link
                   ref={addCtaRef}
                   href="/shop"
                   className="flex items-center gap-3 text-sm font-semibold text-ink/70 transition-colors hover:text-ink underline underline-offset-4 decoration-amber-300"
                 >
                   Shop All Sarees
-                </a>
+                </Link>
               </div>
             </div>
 

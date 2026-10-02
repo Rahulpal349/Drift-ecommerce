@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowLeft, ArrowRight, Heart, ShoppingBag, Star } from "lucide-react";
+import Link from "next/link";
 import products from "@/data/products";
 import TiltCard from "./TiltCard";
 
@@ -119,12 +120,14 @@ export default function TrendingSarees() {
                 <Heart size={14} strokeWidth={2} />
               </button>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={product.image}
-                alt={product.name}
-                className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-105"
-                draggable={false}
-              />
+              <Link href={`/product/${product.id}`} className="block h-full w-full pointer-events-none">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                  draggable={false}
+                />
+              </Link>
             </div>
             <div className="mt-4 flex-1">
               <div className="flex items-center gap-1 mb-1.5">
@@ -132,7 +135,9 @@ export default function TrendingSarees() {
                 <span className="text-xs font-semibold text-ink">{product.rating}</span>
                 <span className="text-xs text-ink/40">({product.reviews})</span>
               </div>
-              <p className="text-sm font-semibold text-ink leading-snug">{product.name}</p>
+              <Link href={`/product/${product.id}`}>
+                <p className="text-sm font-semibold text-ink leading-snug hover:underline">{product.name}</p>
+              </Link>
               <p className="mt-0.5 text-xs text-ink/40">{product.fabric}</p>
               <div className="mt-2 flex items-center justify-between">
                 <div className="flex items-baseline gap-2">

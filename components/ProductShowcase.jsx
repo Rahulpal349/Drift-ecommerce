@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star, ShoppingBag } from "lucide-react";
 import Navbar from "./Navbar";
 import products from "@/data/products";
+import Link from "next/link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(Flip, ScrollTrigger);
@@ -265,7 +266,7 @@ export default function ProductShowcase() {
   }, []);
 
   return (
-    <section id="shop" className="showcase-section relative h-screen w-full bg-white">
+    <section id="shop" className="showcase-section relative h-[140vh] lg:h-screen w-full bg-white">
       <div className="grid h-full min-h-0 grid-cols-1 lg:grid-cols-[62%_38%]">
         <div className="relative flex min-h-0 flex-col bg-white z-50">
           <Navbar />
@@ -356,9 +357,11 @@ export default function ProductShowcase() {
                 <span className="text-ink/40">({activeProduct.reviews})</span>
               </div>
 
-              <h2 className="mt-3 text-4xl font-bold uppercase leading-[1.05] tracking-tight text-ink md:text-5xl">
-                {activeProduct.name}
-              </h2>
+              <Link href={`/product/${activeProduct.id}`}>
+                <h2 className="mt-3 text-4xl font-bold uppercase leading-[1.05] tracking-tight text-ink md:text-5xl hover:underline">
+                  {activeProduct.name}
+                </h2>
+              </Link>
 
               <p className="mt-4 text-2xl font-semibold text-ink">
                 ₹{activeProduct.price.toFixed(2)}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { ChevronRight, Heart, Minus, Plus, ShoppingBag, Star, ArrowLeft } from "lucide-react";
+import { ChevronRight, Heart, Minus, Plus, ShoppingBag, Star } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import products from "@/data/products";
