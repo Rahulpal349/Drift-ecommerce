@@ -198,7 +198,7 @@ export default function Hero() {
             </div>
 
             <div className="col-span-12 hidden flex-col items-end gap-4 lg:col-span-5 lg:flex">
-              {infoCards.map(({ key, icon: Icon, title, body }) => (
+              {infoCards.map(({ key, icon: Icon, title }) => (
                 <div
                   key={key}
                   ref={addCardRef}
@@ -209,7 +209,6 @@ export default function Hero() {
                   </span>
                   <div>
                     <p className="text-sm font-semibold text-ink">{title}</p>
-                    <p className="text-xs leading-snug text-ink/60">{body}</p>
                   </div>
                 </div>
               ))}
@@ -233,9 +232,6 @@ export default function Hero() {
                   </span>
                 </div>
                 <p className="text-sm font-semibold text-ink">Loved by Thousands</p>
-                <p className="mt-1 text-xs leading-snug text-ink/60">
-                  Join thousands of trendsetters who trust Drify.
-                </p>
               </div>
 
               <div

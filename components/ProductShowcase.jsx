@@ -16,10 +16,10 @@ export default function ProductShowcase() {
   const N = products.length;
   const [mounted, setMounted] = useState(false);
   const [order, setOrder] = useState(products.map((_, i) => i)); // [0, 1, 2, 3, 4, 5]
-  
+
   const [selectedSize, setSelectedSize] = useState(products[0].defaultSize);
   const [selectedColor, setSelectedColor] = useState(products[0].colors[0].hex);
-  
+
   const detailsRef = useRef(null);
   const isAnimatingRef = useRef(false);
   const directionRef = useRef(1); // 1 for next, -1 for prev
@@ -58,7 +58,7 @@ export default function ProductShowcase() {
     clone.style.zIndex = 50;
     clone.style.margin = "0";
     clone.style.pointerEvents = "none";
-    
+
     // Maintain filter/opacity visually if it had any, but it's the main image so it's 100% opacity
     clone.style.opacity = "1";
     clone.style.filter = "none";
@@ -168,10 +168,10 @@ export default function ProductShowcase() {
       gsap.fromTo(
         outgoingEl,
         { opacity: 0 },
-        { 
-          opacity: outgoingEl.dataset.index === 'q1' ? 0.55 : 0.32, 
-          duration: 0.6, 
-          delay: 0.4 
+        {
+          opacity: outgoingEl.dataset.index === 'q1' ? 0.55 : 0.32,
+          duration: 0.6,
+          delay: 0.4
         }
       );
     }
@@ -324,11 +324,10 @@ export default function ProductShowcase() {
                       key={size}
                       type="button"
                       onClick={() => setSelectedSize(size)}
-                      className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-medium transition-colors ${
-                        selectedSize === size
+                      className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-medium transition-colors ${selectedSize === size
                           ? "border-2 border-ink text-ink"
                           : "border border-black/15 text-ink/60 hover:border-ink/40"
-                      }`}
+                        }`}
                     >
                       {size}
                     </button>
@@ -348,11 +347,10 @@ export default function ProductShowcase() {
                       aria-label={color.name}
                       onClick={() => setSelectedColor(color.hex)}
                       style={{ backgroundColor: color.hex }}
-                      className={`h-9 w-9 rounded-lg transition-shadow ${
-                        selectedColor === color.hex
+                      className={`h-9 w-9 rounded-lg transition-shadow ${selectedColor === color.hex
                           ? "ring-2 ring-ink ring-offset-2"
                           : "shadow-neu"
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
